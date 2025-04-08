@@ -1,4 +1,14 @@
 <script setup lang="ts">
+
+  import { ref } from 'vue'  // importa a função ref
+
+  // cria uma variável reativa
+  const contador = ref(0)
+
+  // função que altera a variável
+  function aumentar() {
+    contador.value++  // acessa e altera o valor real
+  }
   
 </script>
 
@@ -45,6 +55,10 @@
         <div class="w-3/4 bg-white h-[400px] rounded-lg "></div>
         <div class="w-1/4 bg-white h-[700px] rounded-lg "></div>
 
+      </div>
+      <div class="w-full h-[100px] flex flex-row p-6 gap-4">
+        <h1>Contador: {{ contador }}</h1>
+        <button @click="aumentar">Aumentar</button>
       </div>
 
     </div>
