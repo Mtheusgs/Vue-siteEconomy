@@ -56,6 +56,8 @@
         <div class="w-1/4 bg-white h-[700px] rounded-lg "></div>
 
       </div>
+
+      <!-- REF -->
       <div class="w-full h-[100px] flex flex-row p-6 gap-4">
         <h1>Contador: {{ contador }}</h1>
         <button @click="aumentar">Aumentar</button>
