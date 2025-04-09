@@ -1,14 +1,25 @@
 <script setup lang="ts">
 
-  import { ref } from 'vue'  // importa a função ref
+  import { onMounted, reactive,ref } from 'vue'; // Importa as funções necessárias
 
-  // cria uma variável reativa
-  const contador = ref(0)
+  // Criação da variável reativa para a mensagem
+  const mensagem = reactive({
+    nome: "Eduarda Rabelo",
+    mostrarMensagem: true,
+  }); 
 
-  // função que altera a variável
-  function aumentar() {
-    contador.value++  // acessa e altera o valor real
-  }
+  const Saldo = ref(400)
+
+  // Hook onMounted para esconder a mensagem após 5 segundos
+  onMounted(() => {
+    setTimeout(() => {
+      mensagem.mostrarMensagem = false;
+    }, 5000);
+  }); 
+
+  
+
+  
   
 </script>
 
@@ -37,31 +48,68 @@
       </div>
     </div>
 
-    <div class="w-[96%] flex flex-col"> 
+    <div class="w-[96%] flex flex-col p-6"> 
 
-      <div class="flex flex-row h-[80px] mt-6 "> 
+      <div class="flex flex-row items-center justify-between h-[80px] mt-6 "> 
 
-        <div class="flex flex-row p-4 gap-4">
+        <div class="flex flex-row p-4 gap-4 items-center justify-center">
 
           <h4 class="font-bold text-lg w-25 h-6 border-r-1 border-gray-300 ">Black Cat</h4> 
-          <p class="text-gray-500 h-7 flex items-center justify-center ">Search</p>
+          <div class="flex flex-row gap-4 items-center justify-center">  
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="#888888" d="m11.271 11.978l3.872 3.873a.5.5 0 0 0 .708 0a.5.5 0 0 0 0-.708l-3.565-3.564c2.38-2.747 2.267-6.923-.342-9.532c-2.73-2.73-7.17-2.73-9.898 0s-2.728 7.17 0 9.9a6.96 6.96 0 0 0 4.949 2.05a.5.5 0 0 0 0-1a5.96 5.96 0 0 1-4.242-1.757a6.01 6.01 0 0 1 0-8.486a6.004 6.004 0 0 1 8.484 0a6.01 6.01 0 0 1 0 8.486a.5.5 0 0 0 .034.738"></path></svg>
+            <p class=" text-lg w-25 h-6 text-gray-400">Search</p>
+          </div>
+
+        </div>  
+
+        <div class="flex flex-row items-center gap-6">
+
+          <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="#fbbf24" d="M3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7v2H5a2 2 0 0 0-2 2m16 14H5V8h14z"></path></svg> 
+
+          <div class="flex flex-row p-4 gap-4 border-2 rounded-2xl  h-8 items-center font-bold"> 
+          
+          <h3 class=" " v-show="mensagem.mostrarMensagem">Seja bem vinda, {{ mensagem.nome }}!</h3>   <!-- v-show = verifica e está sempre no código html (independente do resultado, trabalha com display) -->
+          <div class="flex flex-row gap-2 items-center justify-center " v-show="!mensagem.mostrarMensagem">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 26 26"><path fill="currentColor" d="M16.563 15.9c-.159-.052-1.164-.505-.536-2.414h-.009c1.637-1.686 2.888-4.399 2.888-7.07c0-4.107-2.731-6.26-5.905-6.26c-3.176 0-5.892 2.152-5.892 6.26c0 2.682 1.244 5.406 2.891 7.088c.642 1.684-.506 2.309-.746 2.397c-3.324 1.202-7.224 3.393-7.224 5.556v.811c0 2.947 5.714 3.617 11.002 3.617c5.296 0 10.938-.67 10.938-3.617v-.811c0-2.228-3.919-4.402-7.407-5.557"></path></svg>
+            <h3 class=" border-gray-400"  v-show="!mensagem.mostrarMensagem">{{ mensagem.nome }}</h3>
+          </div> 
 
         </div>
+        </div>
+
+
 
       </div> 
 
       <div class="w-full h-[500px] flex flex-row p-6 gap-4"> 
 
-        <div class="w-3/4 bg-white h-[400px] rounded-lg "></div>
-        <div class="w-1/4 bg-white h-[700px] rounded-lg "></div>
+
+        <div class="w-3/4 bg-white h-[400px] rounded-lg  p-4 gap-4 flex flex-col">  
+          
+          <h1 class="font-light text-6xl">Per Week</h1>
+
+          <div class="w-full h-full grid grid-cols-6 grid-rows-6 gap-4">
+            <div class="col-span-2 row-span-3 bg-yellow-400 rounded-2xl p-4 flex flex-row-reverse items-end text-3xl" >
+              ${{ Saldo }}
+            </div> 
+
+            <div class="col-span-2 row-span-3 bg-gray-400 rounded-2xl" ></div>
+
+            <div class="col-span-2 row-span-3 bg-black rounded-2xl" ></div>
+          </div>
+
+          
+
+        </div>  
+
+        <div class="w-1/4 bg-white h-[700px] rounded-lg grid grid-rows-4 p-10">
+          <div class="row-span-1 bg-gray-300 rounded-2xl" ></div>
+        </div> 
+
 
       </div>
 
-      <!-- REF -->
-      <div class="w-full h-[100px] flex flex-row p-6 gap-4">
-        <h1>Contador: {{ contador }}</h1>
-        <button @click="aumentar">Aumentar</button>
-      </div>
+      
 
     </div>
 
